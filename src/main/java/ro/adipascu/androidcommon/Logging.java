@@ -28,6 +28,8 @@ public class Logging {
             if (priority > Log.DEBUG) {
                 if (t != null)
                     Crashlytics.logException(t);
+                if (tag == null)
+                    tag = Crashlytics.TAG;
                 Crashlytics.log(priority, tag, message);
             }
         }
