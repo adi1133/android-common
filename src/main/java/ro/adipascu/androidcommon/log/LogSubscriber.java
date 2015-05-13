@@ -1,4 +1,4 @@
-package ro.adipascu.androidcommon;
+package ro.adipascu.androidcommon.log;
 
 import rx.Subscriber;
 import rx.functions.Action1;

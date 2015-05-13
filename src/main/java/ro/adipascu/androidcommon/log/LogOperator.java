@@ -1,4 +1,4 @@
-package ro.adipascu.androidcommon;
+package ro.adipascu.androidcommon.log;
 
 import rx.functions.Action1;
 import rx.internal.operators.OperatorDoOnEach;
