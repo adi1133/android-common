@@ -3,10 +3,13 @@ package ro.adipascu.androidcommon;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.ColorRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.SearchView;
 import android.text.format.DateFormat;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -97,5 +100,9 @@ public class Tools {
     public static void date(TextView textView, Date date) {
         java.text.DateFormat dateFormat = DateFormat.getDateFormat(textView.getContext());
         textView.setText(dateFormat.format(date));
+    }
+
+    public static View inflate(@LayoutRes int layout, ViewGroup parent) {
+        return LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
     }
 }
