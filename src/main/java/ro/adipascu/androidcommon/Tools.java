@@ -7,6 +7,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.SearchView;
 import android.text.format.DateFormat;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,5 +105,9 @@ public class Tools {
 
     public static View inflate(@LayoutRes int layout, ViewGroup parent) {
         return LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
+    }
+
+    public static boolean isEmail(String email) {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }
