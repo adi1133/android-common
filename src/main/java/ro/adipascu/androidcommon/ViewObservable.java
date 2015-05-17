@@ -4,6 +4,8 @@ import android.support.v7.widget.SearchView;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.AndroidSubscriptions;
+import rx.functions.Action0;
 
 
 /**
@@ -14,29 +16,27 @@ public class ViewObservable {
     public static Observable<String> from(final SearchView searchView) {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
-            public void call(final Subscriber<? super String> subscriber) {
-                subscriber.onNext(searchView.getQuery().toString());
+            public void call(final Subscriber<? super String> observer) {
+                observer.onNext(searchView.getQuery().toString());
                 searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String s) {
-                        subscriber.onNext(s);
-                        return checkSub();
-                    }
-
-                    private boolean checkSub() {
-                        if (subscriber.isUnsubscribed()) {
-                            searchView.setOnQueryTextListener(null);
-                            return false;
-                        }
+                        observer.onNext(s);
                         return true;
                     }
 
                     @Override
                     public boolean onQueryTextChange(String s) {
-                        subscriber.onNext(s);
-                        return checkSub();
+                        observer.onNext(s);
+                        return true;
                     }
                 });
+                observer.add(AndroidSubscriptions.unsubscribeInUiThread(new Action0() {
+                    @Override
+                    public void call() {
+                        searchView.setOnQueryTextListener(null);
+                    }
+                }));
             }
         });
     }
