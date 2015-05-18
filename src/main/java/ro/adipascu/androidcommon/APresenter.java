@@ -8,8 +8,8 @@ package ro.adipascu.androidcommon;
 public class APresenter<V> {
     protected V view;
 
-    public void attach(V view) {
-        this.view = view;
+    public void attach(V v) {
+        this.view = v;
     }
 
     public void detach() {
