@@ -16,6 +16,14 @@ import timber.log.Timber;
 public class Logging {
 
 
+    public static final RestAdapter.Log RETROFIT_TIMBER = new RestAdapter.Log() {
+        @Override
+        public void log(String message) {
+            Timber.tag("Retrofit");
+            Timber.i(message);
+        }
+    };
+
     public static void init(Context context, boolean isDebug) {
         if (isDebug) {
             Timber.plant(new Timber.DebugTree());
@@ -24,7 +32,6 @@ public class Logging {
             Timber.plant(new CrashlyticsTree());
         }
     }
-
 
     private static class CrashlyticsTree extends Timber.Tree {
         @Override
@@ -38,12 +45,4 @@ public class Logging {
             }
         }
     }
-
-    public static final RestAdapter.Log RETROFIT_TIMBER = new RestAdapter.Log() {
-        @Override
-        public void log(String message) {
-            Timber.tag("Retrofit");
-            Timber.i(message);
-        }
-    };
 }

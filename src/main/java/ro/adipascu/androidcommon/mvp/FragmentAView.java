@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by Adi Pascu on 5/21/2015.
  * Email mail@adipascu.ro
@@ -13,6 +15,7 @@ public abstract class FragmentAView<P extends APresenter> extends Fragment imple
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ButterKnife.inject(this, view);
         getPresenter().attach(this);
     }
 

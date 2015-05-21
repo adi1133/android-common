@@ -15,11 +15,13 @@ public abstract class ActivityAView<P extends APresenter> extends MaterialActivi
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         //noinspection unchecked
         getPresenter().attach(this);
+
     }
 
 

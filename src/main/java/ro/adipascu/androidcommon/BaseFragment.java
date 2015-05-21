@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
  */
 public class BaseFragment<A extends Activity> extends Fragment {
     private A parentActivity;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
