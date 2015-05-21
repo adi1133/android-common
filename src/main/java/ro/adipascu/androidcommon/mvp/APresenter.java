@@ -1,4 +1,4 @@
-package ro.adipascu.androidcommon;
+package ro.adipascu.androidcommon.mvp;
 
 /**
  * Created by Adi Pascu on 4/27/15.

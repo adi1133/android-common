@@ -1,4 +1,4 @@
-package ro.adipascu.androidcommon;
+package ro.adipascu.androidcommon.rx;
 
 import android.support.v7.widget.SearchView;
 
