@@ -32,7 +32,6 @@ public abstract class ActivityAView<P extends APresenter> extends MaterialActivi
         super.onStart();
         if (!called)
             throw new UnsupportedOperationException("call viewsReady before onStart");
-        called = false;
     }
 
     @Override
