@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
  * Created by Adi Pascu on 5/12/2015.
  * Email mail@adipascu.ro
  */
-public class MaterialActivity extends AppCompatActivity {
+public abstract class MaterialActivity extends AppCompatActivity {
     protected Toolbar initToolbar() {
         return initToolbar(false);
     }

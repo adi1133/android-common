@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 
 import io.fabric.sdk.android.Fabric;
 import retrofit.RestAdapter;
@@ -28,20 +29,28 @@ public class Logging {
         if (isDebug) {
             Timber.plant(new Timber.DebugTree());
         } else {
-            Fabric.with(context, new Crashlytics());
-            Timber.plant(new CrashlyticsTree());
+            CrashlyticsCore crashCore = new CrashlyticsCore();
+//            Fabric.with(context, new Answers(), new Beta(), new CrashlyticsCore());
+            Fabric.with(context, crashCore);
+            Timber.plant(new CrashlyticsTree(crashCore));
         }
     }
 
     private static class CrashlyticsTree extends Timber.Tree {
+        private final CrashlyticsCore crashlytics;
+
+        public CrashlyticsTree(CrashlyticsCore crashlytics) {
+            this.crashlytics = crashlytics;
+        }
+
         @Override
         protected void log(int priority, String tag, String message, Throwable t) {
             if (priority > Log.DEBUG) {
                 if (t != null)
-                    Crashlytics.logException(t);
+                    crashlytics.logException(t);
                 if (tag == null)
                     tag = Crashlytics.TAG;
-                Crashlytics.log(priority, tag, message);
+                crashlytics.log(priority, tag, message);
             }
         }
     }
