@@ -15,12 +15,18 @@ import butterknife.ButterKnife;
  * Email mail@adipascu.ro
  */
 public abstract class MaterialActivity extends AppCompatActivity {
+    private Toolbar toolbar;
+
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
+
     protected Toolbar initToolbar() {
         return initToolbar(false);
     }
 
     protected Toolbar initToolbar(boolean homeAsUp) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 //      //todo: fix this issue  noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(homeAsUp);
