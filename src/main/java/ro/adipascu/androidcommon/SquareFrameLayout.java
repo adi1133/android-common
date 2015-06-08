@@ -9,7 +9,7 @@ import static android.view.View.MeasureSpec.getMode;
 import static android.view.View.MeasureSpec.getSize;
 
 /**
- * Created by a.pascu on 4/2/2015.
+ * Created by Adi Pascu on 4/2/2015.
  */
 public class SquareFrameLayout extends FrameLayout {
 

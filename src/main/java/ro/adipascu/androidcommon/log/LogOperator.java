@@ -13,6 +13,6 @@ public class LogOperator<T> extends OperatorDoOnEach<T> {
     }
 
     public LogOperator(String tag, Action1<T> onNextListener) {
-        super(new LogSubscriber<T>(tag, onNextListener));
+        super(new LogSubscriber<>(tag, onNextListener));
     }
 }

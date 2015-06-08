@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import timber.log.Timber;
+
 
 public class RecyclerHolderView extends FrameLayout {
     private static final String BUNDLE_INNER = "inner";
@@ -69,14 +71,13 @@ public class RecyclerHolderView extends FrameLayout {
     @Override
     protected void dispatchSaveInstanceState(SparseArray container) {
         super.dispatchFreezeSelfOnly(container);
-        Log.d("tag", "dispatchSaveInstanceState" + container);
-
+        Timber.d("tag", "dispatchSaveInstanceState" + container);
     }
 
     @Override
     protected void dispatchRestoreInstanceState(SparseArray container) {
         super.dispatchThawSelfOnly(container);
-        Log.d("tag", "dispatchRestoreInstanceState" + container);
+        Timber.d("tag", "dispatchRestoreInstanceState" + container);
     }
 
 
