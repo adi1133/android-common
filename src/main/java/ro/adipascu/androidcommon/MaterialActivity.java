@@ -1,5 +1,8 @@
 package ro.adipascu.androidcommon;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -24,6 +27,11 @@ public class MaterialActivity extends AppCompatActivity {
         return toolbar;
     }
 
+    @NonNull
+    @Override
+    public ActionBar getSupportActionBar() {
+        return super.getSupportActionBar();
+    }
 
     @Override
     public void setContentView(int layoutResID) {
@@ -41,5 +49,17 @@ public class MaterialActivity extends AppCompatActivity {
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         super.setContentView(view, params);
         ButterKnife.inject(this);
+    }
+
+    protected void setSubtitle(String subtitle) {
+        getSupportActionBar().setSubtitle(subtitle);
+    }
+
+    protected void setSubtitle(@StringRes int subtitle) {
+        getSupportActionBar().setSubtitle(subtitle);
+    }
+
+    protected void setSubtitle(@StringRes int resId, Object... formatArgs) {
+        getSupportActionBar().setSubtitle(getString(resId, formatArgs));
     }
 }

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
  * Created by Adi Pascu on 5/6/2015.
  * Email mail@adipascu.ro
  */
+@Deprecated
 public class BaseFragment<A extends Activity> extends Fragment {
     private A parentActivity;
 
