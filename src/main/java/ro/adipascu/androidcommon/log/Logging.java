@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.beta.Beta;
 import com.crashlytics.android.core.CrashlyticsCore;
 
 import io.fabric.sdk.android.Fabric;
@@ -25,13 +26,21 @@ public class Logging {
         }
     };
 
+    @Deprecated
     public static void init(Context context, boolean isDebug) {
+        init(context, isDebug, false);
+    }
+
+    public static void init(Context context, boolean isDebug, boolean isBeta) {
         if (isDebug) {
             Timber.plant(new Timber.DebugTree());
         } else {
             CrashlyticsCore crashCore = new CrashlyticsCore();
-//            Fabric.with(context, new Answers(), new Beta(), new CrashlyticsCore());
-            Fabric.with(context, crashCore);
+            if (isBeta)
+                Fabric.with(context, crashCore, new Beta());
+            else
+                Fabric.with(context, crashCore);
+
             Timber.plant(new CrashlyticsTree(crashCore));
         }
     }
