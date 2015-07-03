@@ -3,16 +3,12 @@ package ro.adipascu.androidcommon.view;
 import android.content.Context;
 import android.support.annotation.StringRes;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import ro.adipascu.androidcommon.R;
@@ -22,6 +18,10 @@ import ro.adipascu.androidcommon.Tools;
  * Created by Adi Pascu on 7/3/2015.
  * Email mail@adipascu.ro
  */
+
+/**
+ * Warning: Alters the visibility of child views !!!
+ */
 public class LoadingContainerView extends FrameLayout {
     private View busyContainerView;
     private View errorContainerView;
@@ -30,7 +30,7 @@ public class LoadingContainerView extends FrameLayout {
     private Button errorButton;
     private TextView busyTextView;
     private OnRetryListener onRetryListener;
-    private List<WeakReference<View>> childViews;
+    private List<View> childViews;
     private boolean isBusy;
 
     public LoadingContainerView(Context context) {
@@ -69,7 +69,18 @@ public class LoadingContainerView extends FrameLayout {
         addView(busyContainerView);
         addView(errorContainerView);
         childViews = new ArrayList<>();
+        setOnHierarchyChangeListener(new OnHierarchyChangeListener() {
+            @Override
+            public void onChildViewAdded(View parent, View child) {
+                Tools.visible(child, !isBusy);
+                childViews.add(child);
+            }
 
+            @Override
+            public void onChildViewRemoved(View parent, View child) {
+                childViews.remove(child);
+            }
+        });
         showBusy();
     }
 
@@ -112,26 +123,9 @@ public class LoadingContainerView extends FrameLayout {
 
 
     private void setChildrenVisibility(boolean isVisible) {
-        Iterator<WeakReference<View>> it = childViews.iterator();
-        while (it.hasNext()) {
-            WeakReference<View> viewRef = it.next();
-            View view = viewRef.get();
-            if (view == null)
-                it.remove();
-            else if (indexOfChild(view) >= 0)
-                Tools.visible(view, isVisible);
-            else
-                Log.d(LoadingContainerView.class.getSimpleName(), "reference warning");
-        }
-    }
+        for (View child : childViews)
+            Tools.visible(child, isVisible);
 
-    @Override
-    public void addView(View child, int index, ViewGroup.LayoutParams params) {
-        super.addView(child, index, params);
-        if (childViews != null) {
-            Tools.visible(child, !isBusy);
-            childViews.add(new WeakReference<>(child));
-        }
     }
 
     public interface OnRetryListener {
