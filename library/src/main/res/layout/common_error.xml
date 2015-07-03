@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/common_error"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,13 +10,13 @@
         android:id="@+id/common_error_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/error"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        tools:text="@string/common_error" />
 
     <Button
         android:id="@+id/common_error_retry_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/retry"
+        android:text="@string/common_retry"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 </LinearLayout>

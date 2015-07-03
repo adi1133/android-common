@@ -18,7 +18,7 @@ public abstract class ActivityAView<P extends APresenter> extends MaterialActivi
         called = true;
         //noinspection unchecked
         getPresenter().attach(this);
-        if(getToolbar() == null)
+        if (getToolbar() == null)
             initToolbar();
     }
 
