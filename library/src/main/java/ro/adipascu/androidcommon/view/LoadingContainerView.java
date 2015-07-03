@@ -31,6 +31,7 @@ public class LoadingContainerView extends FrameLayout {
     private TextView busyTextView;
     private OnRetryListener onRetryListener;
     private List<WeakReference<View>> childViews;
+    private boolean isBusy;
 
     public LoadingContainerView(Context context) {
         super(context);
@@ -77,6 +78,7 @@ public class LoadingContainerView extends FrameLayout {
         Tools.visible(busyContainerView, false);
         Tools.visible(errorContainerView, true);
         setChildrenVisibility(false);
+        isBusy = false;
     }
 
     public void showError() {
@@ -88,6 +90,7 @@ public class LoadingContainerView extends FrameLayout {
         Tools.visible(busyContainerView, true);
         Tools.visible(errorContainerView, false);
         setChildrenVisibility(false);
+        isBusy = true;
     }
 
     public void showBusy() {
@@ -98,6 +101,7 @@ public class LoadingContainerView extends FrameLayout {
         Tools.visible(busyContainerView, false);
         Tools.visible(errorContainerView, false);
         setChildrenVisibility(true);
+        isBusy = false;
     }
 
 
@@ -124,16 +128,12 @@ public class LoadingContainerView extends FrameLayout {
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
         super.addView(child, index, params);
-        if (childViews != null)
+        if (childViews != null) {
+            Tools.visible(child, !isBusy);
             childViews.add(new WeakReference<>(child));
-
+        }
     }
 
-    //    public enum Status {
-//        CONTENT,
-//        ERROR,
-//        BUSY
-//    }
     public interface OnRetryListener {
         void onRetry();
     }
