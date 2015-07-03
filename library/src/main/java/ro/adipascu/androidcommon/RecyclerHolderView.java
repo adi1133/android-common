@@ -5,7 +5,6 @@ import android.os.Parcelable;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
@@ -28,26 +27,25 @@ public class RecyclerHolderView extends FrameLayout {
     private boolean isBusy = true;
     private boolean hasError;
     private OnRetryListener onRetryListener;
+    private View errorViewContainer;
 
     public RecyclerHolderView(Context context) {
         super(context);
-        initLayout();
-
+        init();
     }
 
     public RecyclerHolderView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initLayout();
+        init();
         this.id = getId();
         if (id == NO_ID) {
             throw new UnsupportedOperationException("missing id");
         }
-
     }
 
     public RecyclerHolderView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initLayout();
+        init();
         this.id = getId();
         if (id == NO_ID) {
             throw new UnsupportedOperationException("missing id");
@@ -81,7 +79,7 @@ public class RecyclerHolderView extends FrameLayout {
     }
 
 
-    private void initLayout() {
+    private void init() {
 //        setSaveEnabled(false);
         if (isInEditMode())
             return;
@@ -89,8 +87,9 @@ public class RecyclerHolderView extends FrameLayout {
         recyclerView = (RecyclerView) findViewById(R.id.common_recycler);
         busyView = findViewById(R.id.common_busy);
         emptyView = findViewById(R.id.common_empty);
-        errorRetryButtonView = (Button) findViewById(R.id.common_retry_button);
+        errorRetryButtonView = (Button) findViewById(R.id.common_error_retry_button);
         errorTextView = (TextView) findViewById(R.id.common_error_text);
+        errorViewContainer = findViewById(R.id.common_error);
         errorRetryButtonView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +99,8 @@ public class RecyclerHolderView extends FrameLayout {
                 }
             }
         });
+        setOnRetryListener(null);
+        checkVisibility();
     }
 
     public RecyclerView getRecyclerView() {
@@ -125,14 +126,10 @@ public class RecyclerHolderView extends FrameLayout {
         recyclerView.setVisibility(GONE);
         busyView.setVisibility(GONE);
         emptyView.setVisibility(GONE);
-
-        errorRetryButtonView.setVisibility(GONE);
-        errorTextView.setVisibility(GONE);
+        errorViewContainer.setVisibility(GONE);
 
         if (hasError) {
-            if (onRetryListener != null)
-                errorRetryButtonView.setVisibility(VISIBLE);
-            errorTextView.setVisibility(VISIBLE);
+            errorViewContainer.setVisibility(VISIBLE);
         } else if (isBusy)
             busyView.setVisibility(VISIBLE);
         else if (adapter == null)
@@ -164,6 +161,7 @@ public class RecyclerHolderView extends FrameLayout {
 
     public void setOnRetryListener(OnRetryListener onRetryListener) {
         this.onRetryListener = onRetryListener;
+        errorRetryButtonView.setVisibility(onRetryListener != null ? VISIBLE : GONE);
     }
 
     public interface OnRetryListener {
@@ -171,7 +169,6 @@ public class RecyclerHolderView extends FrameLayout {
     }
 
     public static class SavedState extends BaseSavedState {
-
         public SavedState(Parcelable superState) {
             super(superState);
         }
@@ -183,9 +180,6 @@ public class RecyclerHolderView extends FrameLayout {
             if (adapter == null)
                 throw new UnsupportedOperationException();
             checkVisibility();
-
         }
     }
-
-
 }
