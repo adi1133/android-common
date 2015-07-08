@@ -81,7 +81,8 @@ public class LoadingContainerView extends FrameLayout {
                 childViews.remove(child);
             }
         });
-        showBusy();
+        if (isInEditMode())
+            showData();
     }
 
     public void showError(@StringRes int errorStr) {
