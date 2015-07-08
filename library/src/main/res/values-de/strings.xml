@@ -1,0 +1,6 @@
+<resources>
+    <string name="common_busy">Lade</string>
+    <string name="common_empty">Leer</string>
+    <string name="common_retry">Neu versuchen</string>
+    <string name="common_error">Fehler beim Laden der Daten</string>
+</resources>

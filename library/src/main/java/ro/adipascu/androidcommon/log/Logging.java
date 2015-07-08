@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.beta.Beta;
 import com.crashlytics.android.core.CrashlyticsCore;
 
@@ -39,7 +40,7 @@ public class Logging {
             if (isBeta)
                 Fabric.with(context, crashCore, new Beta());
             else
-                Fabric.with(context, crashCore);
+                Fabric.with(context, crashCore, new Answers());
 
             Timber.plant(new CrashlyticsTree(crashCore));
         }

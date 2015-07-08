@@ -2,6 +2,7 @@ package ro.adipascu.androidcommon;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
@@ -127,5 +128,20 @@ public class Tools {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    public static void text(TextView textView, @StringRes int str, Object... formatArgs) {
+        Resources res = textView.getResources();
+        textView.setText(res.getString(str, formatArgs));
+    }
+
+    public static String time(Context context, Date date) {
+        java.text.DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(context);
+        return timeFormat.format(date);
+    }
+
+    public static String date(Context context, Date date) {
+        java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(context);
+        return dateFormat.format(date);
     }
 }
