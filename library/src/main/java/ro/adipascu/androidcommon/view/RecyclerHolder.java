@@ -54,10 +54,18 @@ public class RecyclerHolder extends FrameLayout {
             oldAdapter.unregisterAdapterDataObserver(adapterObserver);
         adapter.registerAdapterDataObserver(adapterObserver);
         getRecyclerView().setAdapter(adapter);
+        updateEmptyVisibility();
+
     }
 
     public void setLayoutManager(RecyclerView.LayoutManager layoutManager) {
         getRecyclerView().setLayoutManager(layoutManager);
+    }
+
+    private void updateEmptyVisibility() {
+        boolean isEmpty = getAdapter().getItemCount() == 0;
+        Tools.visible(emptyView, isEmpty);
+        Tools.visible(recyclerView, !isEmpty);
     }
 
     private class AdapterObserver extends RecyclerView.AdapterDataObserver {
@@ -66,9 +74,7 @@ public class RecyclerHolder extends FrameLayout {
             RecyclerView.Adapter adapter = getAdapter();
             if (adapter == null)
                 throw new UnsupportedOperationException();
-            boolean isEmpty = adapter.getItemCount() == 0;
-            Tools.visible(emptyView, isEmpty);
-            Tools.visible(recyclerView, !isEmpty);
+            updateEmptyVisibility();
         }
     }
 }
