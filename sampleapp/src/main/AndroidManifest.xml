@@ -7,7 +7,7 @@
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/Theme.AppCompat.NoActionBar">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".SometimesEmptyActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.MAIN" />
