@@ -2,6 +2,7 @@
     package="ro.adipascu.androidcommon.sample">
 
     <application
+        android:name=".App"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/Theme.AppCompat.NoActionBar">
