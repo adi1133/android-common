@@ -36,6 +36,7 @@ public abstract class MaterialActivity extends AppCompatActivity {
     @NonNull
     @Override
     public ActionBar getSupportActionBar() {
+        //noinspection ConstantConditions
         return super.getSupportActionBar();
     }
 

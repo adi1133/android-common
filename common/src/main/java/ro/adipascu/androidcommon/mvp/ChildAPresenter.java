@@ -11,6 +11,7 @@ public class ChildAPresenter<V extends FragmentAView, P extends APresenter> exte
 
     protected P parentPresenter;
 
+    @SuppressWarnings("unchecked")
     @Override
     public void attach(V v) {
         super.attach(v);

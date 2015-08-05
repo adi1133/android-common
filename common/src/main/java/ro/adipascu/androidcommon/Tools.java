@@ -27,11 +27,7 @@ import java.util.Date;
  */
 public class Tools {
 
-    /**
-     * Does this even work?
-     *
-     * @param activity
-     */
+   //todo: check if this method works
     public static void dismissKeyboard(Activity activity) {
         View view = activity.getCurrentFocus();
         if (view != null)

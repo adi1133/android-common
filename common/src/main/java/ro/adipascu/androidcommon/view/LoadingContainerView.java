@@ -1,6 +1,7 @@
 package ro.adipascu.androidcommon.view;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 import android.view.View;
@@ -59,7 +60,7 @@ public class LoadingContainerView extends FrameLayout {
         errorButton = (Button) errorContainerView.findViewById(R.id.common_error_retry_button);
         errorButton.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(@NonNull View v) {
                 if (onRetryListener != null)
                     onRetryListener.onRetry();
             }
