@@ -11,8 +11,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import ro.adipascu.androidcommon.Tools;
 import ro.adipascu.androidcommon.mvp.ActivityAView;
 import ro.adipascu.androidcommon.view.LoadingRecyclerHolder;
@@ -22,7 +22,7 @@ import ro.adipascu.androidcommon.view.LoadingRecyclerHolder;
  * Email mail@adipascu.ro
  */
 public class MainActivity extends ActivityAView<MainPresenter> {
-    @InjectView(R.id.recycler)
+    @Bind(R.id.recycler)
     LoadingRecyclerHolder recycler;
     private CountingAdapter adapter;
 //    private RecyclerView.Adapter adapter;
@@ -77,13 +77,13 @@ public class MainActivity extends ActivityAView<MainPresenter> {
         }
 
         static class ViewHolder extends RecyclerView.ViewHolder {
-            @InjectView(android.R.id.text1)
+            @Bind(android.R.id.text1)
             TextView textView1;
 
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                ButterKnife.inject(this, itemView);
+                ButterKnife.bind(this, itemView);
             }
 
             public void setNumber(long number) {
