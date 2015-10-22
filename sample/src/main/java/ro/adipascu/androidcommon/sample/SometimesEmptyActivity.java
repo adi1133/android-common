@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import java.util.concurrent.TimeUnit;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import ro.adipascu.androidcommon.MaterialActivity;
 import ro.adipascu.androidcommon.Tools;
 import ro.adipascu.androidcommon.view.RecyclerHolder;
@@ -25,7 +25,7 @@ import rx.functions.Func1;
  * Email mail@adipascu.ro
  */
 public class SometimesEmptyActivity extends MaterialActivity {
-    @InjectView(R.id.recycler)
+    @Bind(R.id.recycler)
     RecyclerHolder recyclerHolder;
     private SometimesEmptyAdapter adapter;
     private Subscription sub;
@@ -83,12 +83,12 @@ public class SometimesEmptyActivity extends MaterialActivity {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            @InjectView(android.R.id.text1)
+            @Bind(android.R.id.text1)
             TextView textView;
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                ButterKnife.inject(this, itemView);
+                ButterKnife.bind(this, itemView);
                 textView.setText("This is an element!!");
             }
         }

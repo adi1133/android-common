@@ -7,8 +7,8 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import ro.adipascu.androidcommon.Tools;
 
 /**
@@ -44,14 +44,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @InjectView(android.R.id.text1)
+        @Bind(android.R.id.text1)
         TextView textView1;
-        @InjectView(android.R.id.text2)
+        @Bind(android.R.id.text2)
         TextView textView2;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.inject(this, itemView);
+            ButterKnife.bind(this, itemView);
         }
 
         public void setLocale(Locale locale) {

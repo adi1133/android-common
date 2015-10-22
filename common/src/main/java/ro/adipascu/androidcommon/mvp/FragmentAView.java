@@ -15,7 +15,7 @@ public abstract class FragmentAView<P extends APresenter> extends Fragment imple
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
         getPresenter().attach(this);
     }
 

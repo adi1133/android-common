@@ -2,41 +2,27 @@ package ro.adipascu.androidcommon.rx;
 
 import android.support.v7.widget.SearchView;
 
+import com.jakewharton.rxbinding.support.v7.widget.RxSearchView;
+import com.jakewharton.rxbinding.support.v7.widget.SearchViewQueryTextEvent;
+
 import rx.Observable;
-import rx.Subscriber;
-import rx.android.AndroidSubscriptions;
-import rx.functions.Action0;
+import rx.functions.Func1;
 
 
+@Deprecated
 /**
- * Created by Adi Pascu on 5/4/2015.
- * Email mail@adipascu.ro
+ * Class is deprecated use RxBinding instead
  */
 public class ViewObservable {
+    /**
+     * This is deprecated, use {@code RxSearchView#queryTextChangeEvents} instead
+     */
+    @Deprecated
     public static Observable<String> from(final SearchView searchView) {
-        return Observable.create(new Observable.OnSubscribe<String>() {
+        return RxSearchView.queryTextChangeEvents(searchView).map(new Func1<SearchViewQueryTextEvent, String>() {
             @Override
-            public void call(final Subscriber<? super String> observer) {
-                observer.onNext(searchView.getQuery().toString());
-                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                    @Override
-                    public boolean onQueryTextSubmit(String s) {
-                        observer.onNext(s);
-                        return true;
-                    }
-
-                    @Override
-                    public boolean onQueryTextChange(String s) {
-                        observer.onNext(s);
-                        return true;
-                    }
-                });
-                observer.add(AndroidSubscriptions.unsubscribeInUiThread(new Action0() {
-                    @Override
-                    public void call() {
-                        searchView.setOnQueryTextListener(null);
-                    }
-                }));
+            public String call(SearchViewQueryTextEvent searchViewQueryTextEvent) {
+                return searchViewQueryTextEvent.queryText().toString();
             }
         });
     }
