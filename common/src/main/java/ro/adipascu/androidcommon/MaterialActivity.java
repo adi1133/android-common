@@ -27,6 +27,8 @@ public abstract class MaterialActivity extends AppCompatActivity {
 
     protected Toolbar initToolbar(boolean homeAsUp) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar == null)
+            return null;
         setSupportActionBar(toolbar);
 //      //todo: fix this issue  noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(homeAsUp);
