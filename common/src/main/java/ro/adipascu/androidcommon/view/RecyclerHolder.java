@@ -1,6 +1,8 @@
 package ro.adipascu.androidcommon.view;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
@@ -10,7 +12,7 @@ import ro.adipascu.androidcommon.R;
 import ro.adipascu.androidcommon.Tools;
 
 
-public class RecyclerHolder extends FrameLayout {
+public class RecyclerHolder extends FrameLayout implements RecyclerHolderInterface {
     private RecyclerView recyclerView;
     private TextView emptyView;
     private RecyclerView.AdapterDataObserver adapterObserver = new AdapterObserver();
@@ -40,15 +42,19 @@ public class RecyclerHolder extends FrameLayout {
         //todo: accept attribute to set emptyView text/string
     }
 
+
+    @Override
     public RecyclerView getRecyclerView() {
         return recyclerView;
     }
 
-    private RecyclerView.Adapter getAdapter() {
+    @Override
+    public RecyclerView.Adapter getAdapter() {
         return getRecyclerView().getAdapter();
     }
 
-    public void setAdapter(RecyclerView.Adapter adapter) {
+    @Override
+    public void setAdapter(@NonNull RecyclerView.Adapter adapter) {
         RecyclerView.Adapter oldAdapter = getAdapter();
         if (oldAdapter != null)
             oldAdapter.unregisterAdapterDataObserver(adapterObserver);
@@ -58,6 +64,7 @@ public class RecyclerHolder extends FrameLayout {
 
     }
 
+    @Override
     public void setLayoutManager(RecyclerView.LayoutManager layoutManager) {
         getRecyclerView().setLayoutManager(layoutManager);
     }
@@ -66,6 +73,11 @@ public class RecyclerHolder extends FrameLayout {
         boolean isEmpty = getAdapter().getItemCount() == 0;
         Tools.visible(emptyView, isEmpty);
         Tools.visible(recyclerView, !isEmpty);
+    }
+
+    @Override
+    public void setEmptyText(@StringRes int emptyText) {
+        emptyView.setText(emptyText);
     }
 
     private class AdapterObserver extends RecyclerView.AdapterDataObserver {

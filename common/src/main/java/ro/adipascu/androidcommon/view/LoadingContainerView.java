@@ -26,12 +26,10 @@ import ro.adipascu.androidcommon.Tools;
 public class LoadingContainerView extends FrameLayout {
     private View busyContainerView;
     private View errorContainerView;
-    private View messageContainerView;
     //    private Status status;
     private TextView errorTextView;
     private Button errorButton;
     private TextView busyTextView;
-    private TextView messageTextView;
     private OnRetryListener onRetryListener;
     private List<View> childViews;
     private boolean isBusy;
@@ -55,7 +53,6 @@ public class LoadingContainerView extends FrameLayout {
     private void init() {
         busyContainerView = Tools.inflate(R.layout.common_busy, this);
         errorContainerView = Tools.inflate(R.layout.common_error, this);
-        messageContainerView = Tools.inflate(R.layout.common_message, this);
 
         busyTextView = (TextView) busyContainerView.findViewById(R.id.common_loading_text);
 
@@ -69,12 +66,10 @@ public class LoadingContainerView extends FrameLayout {
             }
         });
 
-        messageTextView = (TextView) messageContainerView.findViewById(R.id.common_message_text);
 
         setOnRetryListener(null);
         addView(busyContainerView);
         addView(errorContainerView);
-        addView(messageContainerView);
         childViews = new ArrayList<>();
         setOnHierarchyChangeListener(new OnHierarchyChangeListener() {
             @Override
@@ -96,7 +91,6 @@ public class LoadingContainerView extends FrameLayout {
         errorTextView.setText(errorStr);
         Tools.visible(busyContainerView, false);
         Tools.visible(errorContainerView, true);
-        Tools.visible(messageContainerView, false);
         setChildrenVisibility(false);
         isBusy = false;
     }
@@ -109,7 +103,6 @@ public class LoadingContainerView extends FrameLayout {
         busyTextView.setText(busyStr);
         Tools.visible(busyContainerView, true);
         Tools.visible(errorContainerView, false);
-        Tools.visible(messageContainerView, false);
         setChildrenVisibility(false);
         isBusy = true;
     }
@@ -121,7 +114,6 @@ public class LoadingContainerView extends FrameLayout {
     public void showData() {
         Tools.visible(busyContainerView, false);
         Tools.visible(errorContainerView, false);
-        Tools.visible(messageContainerView, false);
         setChildrenVisibility(true);
         isBusy = false;
     }
@@ -143,12 +135,8 @@ public class LoadingContainerView extends FrameLayout {
         void onRetry();
     }
 
+    @Deprecated
     public void showMessage(@StringRes int messageStr) {
-        messageTextView.setText(messageStr);
-        Tools.visible(busyContainerView, false);
-        Tools.visible(errorContainerView, false);
-        Tools.visible(messageContainerView, true);
-        setChildrenVisibility(false);
-        isBusy = true;
+        throw new UnsupportedOperationException("can only be called on an instance of LoadingContainerView");
     }
 }
