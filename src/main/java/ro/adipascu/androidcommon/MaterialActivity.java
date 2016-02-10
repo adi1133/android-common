@@ -43,20 +43,8 @@ public abstract class MaterialActivity extends AppCompatActivity {
     }
 
     @Override
-    public void setContentView(int layoutResID) {
-        super.setContentView(layoutResID);
-        ButterKnife.bind(this);
-    }
-
-    @Override
-    public void setContentView(View view) {
-        super.setContentView(view);
-        ButterKnife.bind(this);
-    }
-
-    @Override
-    public void setContentView(View view, ViewGroup.LayoutParams params) {
-        super.setContentView(view, params);
+    public void onContentChanged() {
+        super.onContentChanged();
         ButterKnife.bind(this);
     }
 
