@@ -1,14 +1,17 @@
 package ro.adipascu.androidcommon.mvp;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 
-import ro.adipascu.androidcommon.MaterialActivity;
+import butterknife.ButterKnife;
 
 /**
  * Created by Adi Pascu on 5/20/2015.
  * Email mail@adipascu.ro
  */
-public abstract class ActivityAView<P extends APresenter> extends MaterialActivity implements AView<P> {
+public abstract class ActivityAView<P extends APresenter> extends AppCompatActivity implements AView<P> {
     boolean called = false;
 
     /**
@@ -18,8 +21,6 @@ public abstract class ActivityAView<P extends APresenter> extends MaterialActivi
         called = true;
         //noinspection unchecked
         getPresenter().attach(this);
-        if (getToolbar() == null)
-            initToolbar();
     }
 
     @Override
@@ -27,6 +28,21 @@ public abstract class ActivityAView<P extends APresenter> extends MaterialActivi
         super.onCreate(savedInstanceState);
         if (called)
             throw new UnsupportedOperationException("call viewsReady after super.onCreate");
+    }
+
+    @Override
+    public void onContentChanged() {
+        super.onContentChanged();
+        ButterKnife.bind(this);
+    }
+
+    @NonNull
+    @Override
+    public ActionBar getSupportActionBar() {
+        ActionBar bar = super.getSupportActionBar();
+        if (bar == null)
+            throw new NullPointerException();
+        return bar;
     }
 
     @Override
