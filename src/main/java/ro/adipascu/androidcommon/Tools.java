@@ -27,7 +27,7 @@ import java.util.Date;
  */
 public class Tools {
 
-   //todo: check if this method works
+    //todo: check if this method works
     public static void dismissKeyboard(Activity activity) {
         View view = activity.getCurrentFocus();
         if (view != null)
@@ -139,5 +139,9 @@ public class Tools {
     public static String date(Context context, Date date) {
         java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(context);
         return dateFormat.format(date);
+    }
+
+    public static boolean equals(Object a, Object b) {
+        return (a == null) ? (b == null) : a.equals(b);
     }
 }
