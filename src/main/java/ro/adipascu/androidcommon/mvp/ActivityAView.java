@@ -1,6 +1,5 @@
 package ro.adipascu.androidcommon.mvp;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,23 +16,20 @@ public abstract class ActivityAView<P extends APresenter> extends AppCompatActiv
     /**
      * Call this method when the views are set up and {@link #getPresenter()} will not return null
      */
-    protected final void viewsReady() {
-        called = true;
-        //noinspection unchecked
-        getPresenter().attach(this);
+    private void viewsReady() {
+        if (!called) {
+            called = true;
+            //noinspection unchecked
+            getPresenter().attach(this);
+        }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (called)
-            throw new UnsupportedOperationException("call viewsReady after super.onCreate");
-    }
 
     @Override
     public void onContentChanged() {
         super.onContentChanged();
         ButterKnife.bind(this);
+        viewsReady();
     }
 
     @NonNull
@@ -49,7 +45,7 @@ public abstract class ActivityAView<P extends APresenter> extends AppCompatActiv
     protected void onStart() {
         super.onStart();
         if (!called)
-            throw new UnsupportedOperationException("call viewsReady before onStart");
+            throw new UnsupportedOperationException("call setContentView before onStart");
     }
 
     @Override

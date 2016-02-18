@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import java.util.Date;
 
+import rx.Subscription;
+
 /**
  * Created by Adi Pascu on 4/30/2015.
  * Email mail@adipascu.ro
@@ -143,5 +145,10 @@ public class Tools {
 
     public static boolean equals(Object a, Object b) {
         return (a == null) ? (b == null) : a.equals(b);
+    }
+
+    public static void unsubscribe(Subscription subscription) {
+        if (subscription != null && !subscription.isUnsubscribed())
+            subscription.unsubscribe();
     }
 }
