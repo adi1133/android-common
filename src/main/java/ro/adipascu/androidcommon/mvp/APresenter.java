@@ -11,11 +11,12 @@ import rx.internal.util.SubscriptionList;
  */
 //public class APresenter<V extends AView> {
 public class APresenter<V> {
-    private final SubscriptionList subscriptionList = new SubscriptionList();
+    private SubscriptionList subscriptionList;
     protected V view;
 
     public void attach(V v) {
         this.view = v;
+        subscriptionList = new SubscriptionList();
     }
 
     final protected void unsubscribeOnDetach(@NonNull Subscription subscription) {
@@ -24,6 +25,7 @@ public class APresenter<V> {
 
     public void detach() {
         subscriptionList.unsubscribe();
+        subscriptionList = null;
         this.view = null;
     }
 
