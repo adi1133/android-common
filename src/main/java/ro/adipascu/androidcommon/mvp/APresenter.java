@@ -3,7 +3,7 @@ package ro.adipascu.androidcommon.mvp;
 import android.support.annotation.NonNull;
 
 import rx.Subscription;
-import rx.internal.util.SubscriptionList;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by Adi Pascu on 4/27/15.
@@ -11,12 +11,11 @@ import rx.internal.util.SubscriptionList;
  */
 //public class APresenter<V extends AView> {
 public class APresenter<V> {
-    private SubscriptionList subscriptionList;
+    private CompositeSubscription subscriptionList = new CompositeSubscription();
     protected V view;
 
     public void attach(V v) {
         this.view = v;
-        subscriptionList = new SubscriptionList();
     }
 
     final protected void unsubscribeOnDetach(@NonNull Subscription subscription) {
@@ -24,7 +23,7 @@ public class APresenter<V> {
     }
 
     public void detach() {
-        subscriptionList.unsubscribe();
+        subscriptionList.clear();
         subscriptionList = null;
         this.view = null;
     }
