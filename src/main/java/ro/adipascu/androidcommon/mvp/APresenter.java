@@ -24,7 +24,6 @@ public class APresenter<V> {
 
     public void detach() {
         subscriptionList.clear();
-        subscriptionList = null;
         this.view = null;
     }
 
