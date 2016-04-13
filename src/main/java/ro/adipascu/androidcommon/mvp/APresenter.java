@@ -14,9 +14,14 @@ public class APresenter<V> {
     private CompositeSubscription subscriptionList = new CompositeSubscription();
     protected V view;
 
+    public V getView() {
+        return view;
+    }
+
     public void attach(V v) {
         this.view = v;
     }
+
 
     final protected void unsubscribeOnDetach(@NonNull Subscription subscription) {
         subscriptionList.add(subscription);
