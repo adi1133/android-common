@@ -12,17 +12,21 @@ import rx.Subscription;
 public class APresenter<V> {
     protected V view;
     private boolean isForeground;
+    private boolean isDestroyed;
 
-    public void onAttach(V v) {
+    protected void onAttach(V v) {
     }
 
-    public void onDetach() {
+    protected void onForeground() {
     }
 
-    public void onForeground() {
+    protected void onBackground() {
     }
 
-    public void onBackground() {
+    protected void onDetach() {
+    }
+
+    protected void onDestroy() {
     }
 
     //todo: use rx lifecycle
@@ -32,6 +36,7 @@ public class APresenter<V> {
 
 
     public void setView(V view) {
+        assertNotDestroyed();
         if (this.view != null) {
             if (isForeground)
                 background();
@@ -42,19 +47,36 @@ public class APresenter<V> {
             onAttach(this.view);
     }
 
+
     public V getView() {
         return view;
     }
 
     public void foreground() {
+        assertNotDestroyed();
         if (isForeground)
             throw new UnsupportedOperationException("can not be foregrounded twice");
         isForeground = true;
+        onForeground();
     }
 
     public void background() {
+        assertNotDestroyed();
         if (!isForeground)
             throw new UnsupportedOperationException("can not be backgrounded twice");
+        onBackground();
         isForeground = false;
+    }
+
+    public void destroy() {
+        assertNotDestroyed();
+        isDestroyed = true;
+        onDestroy();
+    }
+
+
+    private void assertNotDestroyed() {
+        if (isDestroyed)
+            throw new UnsupportedOperationException("can not do this operation on a destroyed presenter");
     }
 }
