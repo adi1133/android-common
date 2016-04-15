@@ -11,6 +11,7 @@ import rx.Subscription;
 //public class APresenter<V extends AView> {
 public class APresenter<V> {
     protected V view;
+    private boolean isForeground;
 
     public void onAttach(V v) {
     }
@@ -31,8 +32,11 @@ public class APresenter<V> {
 
 
     public void setView(V view) {
-        if (this.view != null)
+        if (this.view != null) {
+            if (isForeground)
+                background();
             onDetach();
+        }
         this.view = view;
         if (this.view != null)
             onAttach(this.view);
@@ -40,5 +44,17 @@ public class APresenter<V> {
 
     public V getView() {
         return view;
+    }
+
+    public void foreground() {
+        if (isForeground)
+            throw new UnsupportedOperationException("can not be foregrounded twice");
+        isForeground = true;
+    }
+
+    public void background() {
+        if (!isForeground)
+            throw new UnsupportedOperationException("can not be backgrounded twice");
+        isForeground = false;
     }
 }
