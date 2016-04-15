@@ -13,8 +13,8 @@ public class ChildAPresenter<V extends FragmentAView, P extends APresenter> exte
 
     @SuppressWarnings("unchecked")
     @Override
-    public void attach(V v) {
-        super.attach(v);
+    public void onAttach(V v) {
+        super.onAttach(v);
         AView<P> parentView;
         Fragment parentFragment = view.getParentFragment();
         if (parentFragment != null)
@@ -25,8 +25,8 @@ public class ChildAPresenter<V extends FragmentAView, P extends APresenter> exte
     }
 
     @Override
-    public void detach() {
-        super.detach();
+    public void onDetach() {
+        super.onDetach();
         parentPresenter = null;
     }
 

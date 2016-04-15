@@ -16,13 +16,13 @@ public abstract class FragmentAView<P extends APresenter> extends Fragment imple
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        getPresenter().attach(this);
+        getPresenter().onAttach(this);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        getPresenter().detach();
+        getPresenter().onDetach();
     }
 
 }
