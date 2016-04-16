@@ -20,7 +20,7 @@ public abstract class ActivityAView<P extends APresenter> extends AppCompatActiv
         if (!called) {
             called = true;
             //noinspection unchecked
-            getPresenter().onAttach(this);
+            getPresenter().attach(this);
         }
     }
 
@@ -51,6 +51,6 @@ public abstract class ActivityAView<P extends APresenter> extends AppCompatActiv
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        getPresenter().onDetach();
+        getPresenter().detach();
     }
 }
