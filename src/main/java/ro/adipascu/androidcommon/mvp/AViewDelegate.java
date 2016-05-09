@@ -14,10 +14,10 @@ public class AViewDelegate<P extends APresenter, V extends AView> {
 
     public void onAttachedToWindow() {
         //noinspection unchecked
-        delegateCallback.getPresenter().onAttach(delegateCallback.getView());
+        delegateCallback.getPresenter().setView(delegateCallback.getView());
     }
 
     public void onDetachedFromWindow() {
-        delegateCallback.getPresenter().onDetach();
+        delegateCallback.getPresenter().setView(null);
     }
 }
