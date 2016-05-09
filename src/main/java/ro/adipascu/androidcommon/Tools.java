@@ -7,6 +7,10 @@ import android.content.res.TypedArray;
 import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
+import android.support.v4.view.OnApplyWindowInsetsListener;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.WindowInsetsCompat;
 import android.support.v7.widget.SearchView;
 import android.text.format.DateFormat;
 import android.util.Patterns;
@@ -150,5 +154,31 @@ public class Tools {
     public static void unsubscribe(Subscription subscription) {
         if (subscription != null && !subscription.isUnsubscribed())
             subscription.unsubscribe();
+    }
+
+    /**
+     * This is a workaround for http://b.android.com/180492
+     */
+    public static void viewPagerFullscreenWorkaround(final ViewPager viewPager) {
+        ViewCompat.setOnApplyWindowInsetsListener(viewPager,
+                new OnApplyWindowInsetsListener() {
+                    @Override
+                    public WindowInsetsCompat onApplyWindowInsets(View v,
+                                                                  WindowInsetsCompat insets) {
+                        insets = ViewCompat.onApplyWindowInsets(v, insets);
+                        if (insets.isConsumed()) {
+                            return insets;
+                        }
+
+                        boolean consumed = false;
+                        for (int i = 0, count = viewPager.getChildCount(); i < count; i++) {
+                            ViewCompat.dispatchApplyWindowInsets(viewPager.getChildAt(i), insets);
+                            if (insets.isConsumed()) {
+                                consumed = true;
+                            }
+                        }
+                        return consumed ? insets.consumeSystemWindowInsets() : insets;
+                    }
+                });
     }
 }
