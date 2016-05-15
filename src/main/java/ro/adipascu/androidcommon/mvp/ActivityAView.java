@@ -4,8 +4,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
-import butterknife.ButterKnife;
-
 /**
  * Created by Adi Pascu on 5/20/2015.
  * Email mail@adipascu.ro
@@ -28,9 +26,11 @@ public abstract class ActivityAView<P extends APresenter> extends AppCompatActiv
     @Override
     public void onContentChanged() {
         super.onContentChanged();
-        ButterKnife.bind(this);
+        bind();
         viewsReady();
     }
+
+    abstract protected void bind();
 
     @NonNull
     @Override
